@@ -63,7 +63,7 @@ function validaDNI() {
 }
 
 function validaTelefono() {
-    const valor = document.getElementById("telf").value;
+    const valor = document.getElementById("telf");
     const regex = /^[0-9]{9}$/; 
     let mensaje = "";
 
@@ -75,48 +75,46 @@ function validaTelefono() {
     gestionarError("error_telefono", mensaje);
 }
 
-function validaPassword(){
-    const valor = document.getElementById("password").value;
+function validaApellido(){
+    const valor = document.getElementById("apellido").value;
     let mensaje = "";
 
-    if (valor.length == 0) {
-        mensaje = "El pasword es obligatorio";
-    }else if(valor.length < 6){
-        mensaje = "La contraseña debe tener almenos 6 caracteres";
-    } else if (valor.length > 255 ) {
-        mensaje = "El paswword no puede ser mas de 60 caracteres";
-    }else if (!valor.match(/\d/)){
-        mensaje = "La contraseña debe contener almenos 1 número";
-    } else if(!valor.match(/[A-z]/)){
-        mensaje = "La contraseña debe contener alemos 1 letra";
-    } else if (!valor.match(/[A-Z]/)){
-        mensaje = "La contraseña debe coner alemos 1 mayúscula";
+    if (valor.length === 0) {
+        mensaje = "El apellido no puede estar vacío";
+    } else if (valor.length < 3 ) {
+        mensaje = "El apellido debe tener al menos 3 caracteres";
+    } else if (valor.length > 30){
+        mensaje = "El apellido no debe tener mas de 30 caracteres";
+    } else if (!IsNan(valor)){
+        mensaje = "El apellido no puede tener números";
     }
-    gestionarError("error_password", mensaje);
-} 
-
-
-function validaConPass(){
-    const valor = document.getElementById("confirmar_password").value;
-    const contra = document.getElementById("password").value;
-    let mensaje = "";
-
-    if (valor.length == 0) {
-        mensaje = "El pasword es obligatorio";
-    }else if(valor.length < 6){
-        mensaje = "La contraseña debe tener almenos 6 caracteres";
-    } else if (valor.length > 60 ) {
-        mensaje = "El paswword no puede ser mas de 60 caracteres";
-    }else if (!valor.match(/\d/)){
-        mensaje = "La contraseña debe contener almenos 1 número";
-    } else if(!valor.match(/[A-z]/)){
-        mensaje = "La contraseña debe contener alemos 1 letra";
-    } else if (!valor.match(/[A-Z]/)){
-        mensaje = "La contraseña debe coner alemos 1 mayúscula";
-    } else if (contra !== valor) {
-        mensaje = "El pasword no coincide";
-    } 
-    gestionarError("error_confirmar_psasword", mensaje);
+    gestionarError("error_apellido", mensaje);
 }
 
+function validaEspecialidad(){
+    const valor = document.getElementById("especialidad").value;
+    let mensaje = "";
 
+    if(valor.length === 0){
+        mensaje = "La especialidad no puede estar vacía";
+    }else if(valor.length <= 3){
+        mensaje = "El nombre de la especialidad no puede ser tan corto";
+    }else if(!IsNaN(valor)){
+        mensaje = "La especialidad no puede tener números";
+    }
+    gestionarError("error_especialidad", mensaje);
+}
+
+function validaSalario(){
+    const valor = document.getElementById("salario");
+    let mensaje = "";
+
+    if(valor.length === 0){
+        mensaje = "El salario no puede estar vacío";
+    }else if(IsNaN(valor)){
+        mensaje = "El salario debe ser un número";
+    }else if(valor < 1100){
+        mensaje = "El salario minimo de los empleados es de 1100€";
+    }
+    gestionarError("error_salario", mensaje);
+}

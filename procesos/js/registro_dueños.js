@@ -9,11 +9,11 @@ function gestionarError(idError, mensaje) {
 
 
 function validaNombre(){
-    const valor = document.getElementById("username").value;
+    const valor = document.getElementById("nombre").value;
     let mensaje = "";
 
     if (valor.length === 0) {
-        mensaje = "El nombre de usuario no puede estar vacío";
+        mensaje = "El nombre no puede estar vacío";
     } else if (valor.length < 3 ) {
         mensaje = "El nombre debe tener al menos 3 caracteres";
     } else if (valor.length > 30){
@@ -22,6 +22,22 @@ function validaNombre(){
         mensaje = "El nombre no puede tener números";
     }
     gestionarError("error_usuario", mensaje);
+}
+
+function validaApellido(){
+    const valor = document.getElementById("apellido").value;
+    let mensaje = "";
+
+    if (valor.length === 0) {
+        mensaje = "El apellido no puede estar vacío";
+    } else if (valor.length < 3 ) {
+        mensaje = "El apellido debe tener al menos 3 caracteres";
+    } else if (valor.length > 30){
+        mensaje = "El apellido no debe tener mas de 30 caracteres";
+    } else if (!IsNan(valor)){
+        mensaje = "El apellido no puede tener números";
+    }
+    gestionarError("error_apellido", mensaje);
 }
 
 function validaEmail(){
@@ -63,7 +79,7 @@ function validaDNI() {
 }
 
 function validaTelefono() {
-    const valor = document.getElementById("telf").value;
+    const valor = document.getElementById("telf");
     const regex = /^[0-9]{9}$/; 
     let mensaje = "";
 

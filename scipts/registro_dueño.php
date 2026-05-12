@@ -2,16 +2,17 @@
 include '../scripts/conexion.php';
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    if(isset($_POST['username']) && isset($_POST['email'])  && isset($_POST['password']) && isset($_POST['confirmar_password'])){
+    if(isset($_POST['nombre']) && isset($_POST['apellido'])&& isset($_POST['email'])  && isset($_POST['dni']) && isset($_POST['telf'])){
         session_start();
 
-        $usuario = $_POST['username'];
+        $nombre = $_POST['nombre'];
+        $apellido = $_POST['apellido'];
         $email = $_POST['email'];
-        $password = $_POST['password'];
-        $password2 = $_POST['confirmar_password'];
+        $dni = $_POST['dni'];
+        $telefono = $_POST['telefono'];
 
          // Validación de campos vacíos
-        if (empty($usuario) || empty($email)|| empty($password) || empty($password2)) {
+        if (empty($nombre) || empty($apellido) || empty($email)|| empty($dni) || empty($telefono)) {
             echo "<script>
                     alert('Error: Todos los campos son obligatorios.');
                     window.history.back();
@@ -19,30 +20,21 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             exit;
         }
 
-        if($password !== $password2){
-            echo "<script>
-                    alert('Error: Las contraseñas no coinciden');
-                    window.history.back();
-                  </script>";
-            exit;
-        }
-
-        // Encriptar la contraseña (Seguridad)
-        $pass_hash = password_hash($password, PASSWORD_DEFAULT);
+       
 
         // 7. Preparar la consulta SQL (Estilo Procedural)
-        $sql = "INSERT INTO usuario (nombre, email, contraseña) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO propietario (nombre, nom_telf, email, Dni, apellido) VALUES (?, ?, ?, ?, ?)";
         $result = mysqli_prepare($conn, $sql);
 
         if ($result) {
         // "sss" indica que los 3 parámetros son strings
         // Orden: usuario ($usuario), password ($pass_hash), nombre_completo ($nombre)
-        mysqli_stmt_bind_param($result, "sss", $usuario, $email, $pass_hash,);
+        mysqli_stmt_bind_param($result, "sisss", $nombre, $telefono, $email, $dni, $apellido);
 
         //Ejecutar la intersección
         if(mysqli_stmt_execute($result)){
             echo "<script>
-                    alert('Registro exitoso. Ya puede iniciar sesión.');
+                    alert('Registro el propietario de XXXX se ha registrado exitosamente.');
                     window.location.href = '../view/login.html';
                 </script>";
 

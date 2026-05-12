@@ -7,7 +7,6 @@ function gestionarError(idError, mensaje) {
     }
 }
 
-
 function validaNombre(){
     const valor = document.getElementById("username").value;
     let mensaje = "";
@@ -37,7 +36,6 @@ function validaEmail(){
     gestionarError("error_email", mensaje);
 }
 
-
 function validaPassword(){
     const valor = document.getElementById("password").value;
     let mensaje = "";
@@ -57,7 +55,6 @@ function validaPassword(){
     }
     gestionarError("error_password", mensaje);
 } 
-
 
 function validaConPass(){
     const valor = document.getElementById("confirmar_password").value;
