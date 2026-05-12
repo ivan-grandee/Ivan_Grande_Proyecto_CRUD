@@ -22,6 +22,25 @@
         <p id="error_usuario"></p><br>
     <br><br>
 
+        <div class="register_email">
+        <label>Email</label>
+        <input type="text" name="email" id="email" required onblur="validaEmail()">
+    </div>
+    <p id="error_email"></p><br>
+    <br><br>
+    <div class="register_DNI">
+        <label>DNI</label>
+        <input type="text" name="DNI" id="DNI" required onblur="validaDNI()">
+    </div>
+    <p id="error_dni"></p><br>
+    <br><br>
+
+    <div class="register_telef">
+        <label>Telefono</label>
+        <input type="text" name="telf" id="telf" required onblur="validaTelefono()">
+    </div>
+        <p id="error_telefono"></p><br>
+    <br><br>
     <div class="register_password">
         <label>Password</label>
         <input type="password" name="password" id="password" required onblur="validaPassword()">
@@ -31,35 +50,13 @@
 
     <div class="register_conf_password">
         <label>Confirmar Password</label>
-        <input type="password" name="confirmar_password" id="confirmar_password" required onblur="validaConPass()">
+        <input type="password" name="password2" id="password2" required onblur="validaConPass()">
     </div>
         <p id="error_confirmar_pasword"></p><br>
     <br><br>
 
-    <div class="register_email">
-        <label>Email</label>
-        <input type="text" name="email" id="email" required onblur="validaEmail()">
-    </div>
-    <p id="error_email"></p><br>
-    <br><br>
-
-    <div class="register_DNI">
-        <label>DNI</label>
-        <input type="text" name="email" id="email" required onblur="validaDNI()">
-    </div>
-    <p id="error_dni"></p><br>
-    <br><br>
-
-    <div class="register_telef">
-        <label>Telefono</label>
-        <input type="text" name="email" id="email" required onblur="validaTelefono()">
-    </div>
-        <p id="error_telefono"></p><br>
-    <br><br>
-
-
 <button type="submit">Registrarse</button>
-<a href="login.html">
+<a href="index.php">
     Volver al inicio
 </a>
 </form>
