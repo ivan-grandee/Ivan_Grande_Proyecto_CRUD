@@ -3,58 +3,62 @@ function gestionarError(idError, mensaje) {
     const contenedor = document.getElementById(idError);
     if (contenedor) {
         contenedor.textContent = mensaje;
-        contenedor.style.color = "red";
+        contenedor.style.color = mensaje === "" ? "" : "red";
     }
 }
 
-
-function validaNombre(){
+// nombre — VARCHAR(30)
+function validaNombre() {
     const valor = document.getElementById("nombre").value;
     let mensaje = "";
 
     if (valor.length === 0) {
         mensaje = "El nombre no puede estar vacío";
-    } else if (valor.length < 3 ) {
+    } else if (valor.length < 3) {
         mensaje = "El nombre debe tener al menos 3 caracteres";
-    } else if (valor.length > 30){
-        mensaje = "El nombre no debe tener mas de 30 caracteres";
-    } else if (!IsNan(valor)){
+    } else if (valor.length > 30) {
+        mensaje = "El nombre no debe tener más de 30 caracteres";
+    } else if (!isNaN(valor)) {
         mensaje = "El nombre no puede tener números";
     }
     gestionarError("error_usuario", mensaje);
 }
 
-function validaApellido(){
+// apellido — VARCHAR(30)
+function validaApellido() {
     const valor = document.getElementById("apellido").value;
     let mensaje = "";
 
     if (valor.length === 0) {
         mensaje = "El apellido no puede estar vacío";
-    } else if (valor.length < 3 ) {
+    } else if (valor.length < 3) {
         mensaje = "El apellido debe tener al menos 3 caracteres";
-    } else if (valor.length > 30){
-        mensaje = "El apellido no debe tener mas de 30 caracteres";
-    } else if (!IsNan(valor)){
+    } else if (valor.length > 30) {
+        mensaje = "El apellido no debe tener más de 30 caracteres";
+    } else if (!isNaN(valor)) { 
         mensaje = "El apellido no puede tener números";
     }
     gestionarError("error_apellido", mensaje);
 }
 
-function validaEmail(){
-    const valor = document.getElementById("email").value; 
+// email — VARCHAR(45)
+function validaEmail() {
+    const valor = document.getElementById("email").value;
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    let mensaje = ""; 
+    let mensaje = "";
 
     if (valor.length === 0) {
         mensaje = "El email no puede estar vacío";
+    } else if (valor.length > 45) {
+        mensaje = "El email no puede superar los 45 caracteres";
     } else if (!regex.test(valor)) {
         mensaje = "El formato del email no es válido";
     }
     gestionarError("error_email", mensaje);
 }
 
+// Dni — CHAR(9): 8 dígitos + 1 letra, con validación de letra
 function validaDNI() {
-    
     const elementoDNI = document.getElementById("dni");
     const valor = elementoDNI.value.toUpperCase();
     const regex = /^\d{8}[A-Z]$/;
@@ -71,16 +75,16 @@ function validaDNI() {
         const letraCorrecta = letras[numero % 23];
 
         if (letraEnviada !== letraCorrecta) {
-            
-            mensaje = `La letra para ${numero} no es ${letraEnviada}`;
+            mensaje = `La letra correcta para ${numero} no es la ${letraEnviada}`;
         }
     }
     gestionarError("error_dni", mensaje);
 }
 
+// num_telef — INT(9): exactamente 9 dígitos
 function validaTelefono() {
-    const valor = document.getElementById("telf");
-    const regex = /^[0-9]{9}$/; 
+    const valor = document.getElementById("telf").value;
+    const regex = /^[0-9]{9}$/;
     let mensaje = "";
 
     if (valor.length === 0) {
@@ -90,7 +94,3 @@ function validaTelefono() {
     }
     gestionarError("error_telefono", mensaje);
 }
-
-
-
-

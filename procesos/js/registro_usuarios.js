@@ -3,78 +3,83 @@ function gestionarError(idError, mensaje) {
     const contenedor = document.getElementById(idError);
     if (contenedor) {
         contenedor.textContent = mensaje;
-        contenedor.style.color = "red";
+        contenedor.style.color = mensaje === "" ? "" : "red";
     }
 }
 
-function validaNombre(){
+// nombre — VARCHAR(50)
+function validaNombre() {
     const valor = document.getElementById("username").value;
     let mensaje = "";
 
     if (valor.length === 0) {
         mensaje = "El nombre de usuario no puede estar vacío";
-    } else if (valor.length < 3 ) {
+    } else if (valor.length < 3) {
         mensaje = "El nombre debe tener al menos 3 caracteres";
-    } else if (valor.length > 30){
-        mensaje = "El nombre no debe tener mas de 30 caracteres";
-    } else if (!IsNan(valor)){
-        mensaje = "El nombre no puede tener números";
+    } else if (valor.length > 50) {
+        mensaje = "El nombre no debe tener más de 50 caracteres";
+    } else if (!isNaN(valor)) {
+        mensaje = "El nombre no puede ser solo números";
     }
     gestionarError("error_usuario", mensaje);
 }
 
-function validaEmail(){
-    const valor = document.getElementById("email").value; 
+// email — VARCHAR(50)
+function validaEmail() {
+    const valor = document.getElementById("email").value;
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    let mensaje = ""; 
+    let mensaje = "";
 
     if (valor.length === 0) {
         mensaje = "El email no puede estar vacío";
+    } else if (valor.length > 50) {
+        mensaje = "El email no puede superar los 50 caracteres";
     } else if (!regex.test(valor)) {
         mensaje = "El formato del email no es válido";
     }
     gestionarError("error_email", mensaje);
 }
 
-function validaPassword(){
+// contraseña — VARCHAR(255) (se guarda hasheada)
+function validaPassword() {
     const valor = document.getElementById("password").value;
     let mensaje = "";
 
-    if (valor.length == 0) {
-        mensaje = "El pasword es obligatorio";
-    }else if(valor.length < 6){
-        mensaje = "La contraseña debe tener almenos 6 caracteres";
-    } else if (valor.length > 255 ) {
-        mensaje = "El paswword no puede ser mas de 60 caracteres";
-    }else if (!valor.match(/\d/)){
-        mensaje = "La contraseña debe contener almenos 1 número";
-    } else if(!valor.match(/[A-z]/)){
-        mensaje = "La contraseña debe contener alemos 1 letra";
-    } else if (!valor.match(/[A-Z]/)){
-        mensaje = "La contraseña debe coner alemos 1 mayúscula";
+    if (valor.length === 0) {
+        mensaje = "La contraseña es obligatoria";
+    } else if (valor.length < 6) {
+        mensaje = "La contraseña debe tener al menos 6 caracteres";
+    } else if (valor.length > 255) {
+        mensaje = "La contraseña no puede superar los 255 caracteres";
+    } else if (!valor.match(/\d/)) {
+        mensaje = "La contraseña debe contener al menos 1 número";
+    } else if (!valor.match(/[a-zA-Z]/)) {
+        mensaje = "La contraseña debe contener al menos 1 letra";
+    } else if (!valor.match(/[A-Z]/)) {
+        mensaje = "La contraseña debe contener al menos 1 mayúscula";
     }
     gestionarError("error_password", mensaje);
-} 
+}
 
-function validaConPass(){
+function validaConPass() {
     const valor = document.getElementById("confirmar_password").value;
     const contra = document.getElementById("password").value;
     let mensaje = "";
 
-    if (valor.length == 0) {
-        mensaje = "El pasword es obligatorio";
-    }else if(valor.length < 6){
-        mensaje = "La contraseña debe tener almenos 6 caracteres";
-    } else if (valor.length > 60 ) {
-        mensaje = "El paswword no puede ser mas de 60 caracteres";
-    }else if (!valor.match(/\d/)){
-        mensaje = "La contraseña debe contener almenos 1 número";
-    } else if(!valor.match(/[A-z]/)){
-        mensaje = "La contraseña debe contener alemos 1 letra";
-    } else if (!valor.match(/[A-Z]/)){
-        mensaje = "La contraseña debe coner alemos 1 mayúscula";
+    if (valor.length === 0) {
+        mensaje = "La confirmación de contraseña es obligatoria";
+    } else if (valor.length < 6) {
+        mensaje = "La contraseña debe tener al menos 6 caracteres";
+    } else if (valor.length > 255) {
+        mensaje = "La contraseña no puede superar los 255 caracteres";
+    } else if (!valor.match(/\d/)) {
+        mensaje = "La contraseña debe contener al menos 1 número";
+    } else if (!valor.match(/[a-zA-Z]/)) {
+        mensaje = "La contraseña debe contener al menos 1 letra";
+    } else if (!valor.match(/[A-Z]/)) {
+        mensaje = "La contraseña debe contener al menos 1 mayúscula";
     } else if (contra !== valor) {
-        mensaje = "El pasword no coincide";
-    } 
-    gestionarError("error_confirmar_psasword", mensaje);
+        mensaje = "Las contraseñas no coinciden";
+    }
+    gestionarError("error_confirmar_password", mensaje);
 }

@@ -1,54 +1,55 @@
 <?php
-session_start();
-if(!isset ($_SESSION["usuario"])) {
-    header("Location: ./login.html");
-}
+include '../scripts/conexion.php';
 
-if($_SERVER["REQUEST METHOD"] == "POST"){
 
-    if (isset($_POST['nombre']) && isset($_POST['chip']) && isset($_POST['tipo']) && isset($_POST['sexo']) && isset($_POST['raza']) && isset($_POST['peso']) && isset($_POST['tamaño']) && isset($_POST['comportamiento']) && isset($_POST['fecha']) && isset($_POST['veterinario']) && isset($_POST['propietario'])){
-    include "includes/conexion.php";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $nombre = $_POST['nombre'];
-    $chip = $_POST['chip'];
-    $tipo = $_POST['tipo'];
-    $sexo = $_POST['sexo'];
-    $raza = $_POST['raza'];
-    $peso = $_POST['peso'];
-    $tamaño = $_POST['tamaño'];
-    $comportamiento = $_POST['comportamiento'];
-    $fecha = $_POST['fecha'];
-    $veterinario = $_POST['veterinario'];
-    $propietario = $_POST['propietario'];
+    if (isset($_POST['nombre']) && isset($_POST['chip']) && isset($_POST['tipo']) && isset($_POST['sexo']) && isset($_POST['raza']) && isset($_POST['peso']) && isset($_POST['tamaño']) && isset($_POST['comportamiento']) && isset($_POST['fecha']) && isset($_POST['veterinario']) && isset($_POST['propietario'])) {
 
-        if(empty($nombre) || empty($chip) || empty($tipo) || empty($sexo) || empty($raza) || empty($peso) || empty($tamaño) || empty($comportamiento) || empty($fecha) || empty($veterinario) || empty($propietario)){
-            echo "<script>alerts('Todos los campos son obligatorios');
+        include "includes/conexion.php";
+
+        $nombre         = $_POST['nombre'];
+        $chip           = $_POST['chip'];
+        $tipo           = $_POST['tipo'];
+        $sexo           = $_POST['sexo'];
+        $raza           = $_POST['raza'];         
+        $peso           = $_POST['peso'];
+        $tamaño         = $_POST['tamaño'];
+        $comportamiento = $_POST['comportamiento'];
+        $fecha          = $_POST['fecha'];
+        $veterinario    = $_POST['veterinario'];  
+        $propietario    = $_POST['propietario'];  
+
+        if (empty($nombre) || empty($chip) || empty($tipo) || empty($sexo) || empty($raza) || empty($peso) || empty($tamaño) || empty($comportamiento) || empty($fecha) || empty($veterinario) || empty($propietario)) {
+            echo "<script>alert('Todos los campos son obligatorios');
             window.history.back();</script>";
+            exit; 
         }
 
-        $sql = "INSERT INTO mascotas (chip, tipo, sexo, raza, peso, tamaño, comportamiento, fecha, veterinario, propietario) VALUES ('?', '?', '?', '?', '?', '?', '?', '?', '?', '?')";
-        $resultado = mysqli_query($conn, $sql);
+        $sql = "INSERT INTO Mascotas (Chip, Nombre, Sexo, Fecha, id_Raza, id_Propietario, id_veterinario, peso, Tamaño, Comportaminto, tipo)VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $resultado = mysqli_prepare($conn, $sql);
 
-        if($resultado){ // si es que si
-            mysqli_stmt_bind_param($resultado, "issisiiisss", $chip, $nombre, $sexo, $tipo, $fecha, $raza, $propietario, $veterinario, $peso, $tamaño, $comportamiento);
-        
+        if ($resultado) {
+           
+            mysqli_stmt_bind_param($resultado, "ssssiidss​s", $chip, $nombre, $sexo, $fecha, $raza, $propietario, $veterinario, $peso, $tamaño, $comportamiento, $tipo);
 
-            if (mysqli_stmt_execute($resultado)){
-                echo "<script>alert('Registro exitoso!'); window.location.href='./tabla_mascotas'</script>";
+            if (mysqli_stmt_execute($resultado)) {
+                echo "<script>alert('Registro exitoso!'); window.location.href='./tabla_mascotas.php'</script>";
             } else {
-                echo "Error al registrar:" . mysqli_error($conn);
+                echo "Error al registrar: " . mysqli_stmt_error($resultado); 
             }
 
-            mysqli_stmt_close($result);
+            mysqli_stmt_close($resultado);
         } else {
-            echo "Error al preparar la consulta:" . mysqli_error($conn);
+            echo "Error al preparar la consulta: " . mysqli_error($conn);
         }
+
     } else {
         echo "Faltan datos en el formulario";
     }
+
 } else {
-   
-    header("Location: ..(./XXX.html");
+    header("Location: ./registro_mascotas.html");
     exit;
 }
 ?>

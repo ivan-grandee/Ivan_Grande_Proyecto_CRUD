@@ -3,42 +3,45 @@ function gestionarError(idError, mensaje) {
     const contenedor = document.getElementById(idError);
     if (contenedor) {
         contenedor.textContent = mensaje;
-        contenedor.style.color = "red";
+        contenedor.style.color = mensaje === "" ? "" : "red";
     }
 }
 
-
-function validaNombre(){
+// nombre — VARCHAR(30)
+function validaNombre() {
     const valor = document.getElementById("username").value;
     let mensaje = "";
 
     if (valor.length === 0) {
-        mensaje = "El nombre de usuario no puede estar vacío";
-    } else if (valor.length < 3 ) {
+        mensaje = "El nombre no puede estar vacío";
+    } else if (valor.length < 3) {
         mensaje = "El nombre debe tener al menos 3 caracteres";
-    } else if (valor.length > 30){
-        mensaje = "El nombre no debe tener mas de 30 caracteres";
-    } else if (!IsNan(valor)){
+    } else if (valor.length > 30) {
+        mensaje = "El nombre no debe tener más de 30 caracteres";
+    } else if (!isNaN(valor)) { // [FIX] IsNan → isNaN
         mensaje = "El nombre no puede tener números";
     }
     gestionarError("error_usuario", mensaje);
 }
 
-function validaEmail(){
-    const valor = document.getElementById("email").value; 
+// email — VARCHAR(45)
+function validaEmail() {
+    const valor = document.getElementById("email").value;
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    let mensaje = ""; 
+    let mensaje = "";
 
     if (valor.length === 0) {
         mensaje = "El email no puede estar vacío";
+    } else if (valor.length > 45) {
+        mensaje = "El email no puede superar los 45 caracteres";
     } else if (!regex.test(valor)) {
         mensaje = "El formato del email no es válido";
     }
     gestionarError("error_email", mensaje);
 }
 
+// Dni — CHAR(9)
 function validaDNI() {
-    
     const elementoDNI = document.getElementById("dni");
     const valor = elementoDNI.value.toUpperCase();
     const regex = /^\d{8}[A-Z]$/;
@@ -55,16 +58,17 @@ function validaDNI() {
         const letraCorrecta = letras[numero % 23];
 
         if (letraEnviada !== letraCorrecta) {
-            
-            mensaje = `La letra para ${numero} no es ${letraEnviada}`;
+            mensaje = `La letra correcta para ${numero} es ${letraCorrecta}, no ${letraEnviada}`;
         }
     }
     gestionarError("error_dni", mensaje);
 }
 
+// num_telef — INT(9)
 function validaTelefono() {
-    const valor = document.getElementById("telf");
-    const regex = /^[0-9]{9}$/; 
+    // [FIX] Faltaba .value — se leía el elemento DOM, no su valor
+    const valor = document.getElementById("telf").value;
+    const regex = /^[0-9]{9}$/;
     let mensaje = "";
 
     if (valor.length === 0) {
@@ -75,46 +79,54 @@ function validaTelefono() {
     gestionarError("error_telefono", mensaje);
 }
 
-function validaApellido(){
+// apellido — VARCHAR(30)
+function validaApellido() {
     const valor = document.getElementById("apellido").value;
     let mensaje = "";
 
     if (valor.length === 0) {
         mensaje = "El apellido no puede estar vacío";
-    } else if (valor.length < 3 ) {
+    } else if (valor.length < 3) {
         mensaje = "El apellido debe tener al menos 3 caracteres";
-    } else if (valor.length > 30){
-        mensaje = "El apellido no debe tener mas de 30 caracteres";
-    } else if (!IsNan(valor)){
+    } else if (valor.length > 30) {
+        mensaje = "El apellido no debe tener más de 30 caracteres";
+    } else if (!isNaN(valor)) { // [FIX] IsNan → isNaN
         mensaje = "El apellido no puede tener números";
     }
     gestionarError("error_apellido", mensaje);
 }
 
-function validaEspecialidad(){
+// Especialidad — VARCHAR(45)
+function validaEspecialidad() {
     const valor = document.getElementById("especialidad").value;
     let mensaje = "";
 
-    if(valor.length === 0){
+    if (valor.length === 0) {
         mensaje = "La especialidad no puede estar vacía";
-    }else if(valor.length <= 3){
+    } else if (valor.length <= 3) {
         mensaje = "El nombre de la especialidad no puede ser tan corto";
-    }else if(!IsNaN(valor)){
-        mensaje = "La especialidad no puede tener números";
+    } else if (valor.length > 45) {
+        mensaje = "La especialidad no puede superar los 45 caracteres";
+    } else if (!isNaN(valor)) {
+        mensaje = "La especialidad no puede ser solo números";
     }
     gestionarError("error_especialidad", mensaje);
 }
 
-function validaSalario(){
-    const valor = document.getElementById("salario");
+// sal — DECIMAL(7,2): salario mínimo 1100
+function validaSalario() {
+    const valor = document.getElementById("salario").value;
+    const num = parseFloat(valor);
     let mensaje = "";
 
-    if(valor.length === 0){
+    if (valor.length === 0) {
         mensaje = "El salario no puede estar vacío";
-    }else if(IsNaN(valor)){
+    } else if (isNaN(num)) { 
         mensaje = "El salario debe ser un número";
-    }else if(valor < 1100){
-        mensaje = "El salario minimo de los empleados es de 1100€";
+    } else if (num < 1100) {
+        mensaje = "El salario mínimo de los empleados es de 1100€";
+    } else if (num > 99999.99) {
+        mensaje = "El salario no puede superar 99999.99€ (formato DECIMAL 7,2)";
     }
     gestionarError("error_salario", mensaje);
 }
