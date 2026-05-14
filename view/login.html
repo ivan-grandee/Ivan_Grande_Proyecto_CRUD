@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login artistas
+    </title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+</head>
+
+<body>
+    <div class="loginbox">
+        <form action="../scripts/autenticacion.php" method="POST">
+
+            <h2>INICIAR SESIÓN</h2>
+            <div class="divmail">
+                <div class="cajamail">
+                    <input type="text" name="username" id="username" placeholder="Introducir usuario o correo" onblur="validaNombre()">
+                    <div class="divmail">
+                    </div>
+                    <p id="error_usuario"></p><br>
+                </div>
+                <div class="divpass">
+                    <div class="cajapass">
+                        <input type="password" name="password" id="password" placeholder="Introducir contraseña" onblur="validaPassword()">
+                    </div>
+                    <p id="error_password"></p><br>
+                </div>
+                <div>
+                    <input type="submit" name="login" value="Login"></input>
+                </div>
+            </div>
+        </form>
+        <p>¿No tienes cuenta?</p>
+<a href="register.php">
+    <button>Registrarse</button>
+</a>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,113 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+ 
+body {
+    min-height: 100vh;
+    background: #1a0533;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+ 
+/* Caja principal */
+.loginbox {
+    background: #ffffff;
+    padding: 40px 36px;
+    width: 360px;
+    border-radius: 14px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+ 
+/* Logo */
+.loginbox img {
+    width: 110px;
+    margin-bottom: 24px;
+}
+ 
+/* Inputs */
+.loginbox input[type="text"],
+.loginbox input[type="password"],
+.loginbox input[type="email"] {
+    width: 100%;
+    padding: 12px 14px;
+    margin: 7px 0;
+    border: 1.5px solid #ddd;
+    border-radius: 8px;
+    font-size: 0.93rem;
+    color: #333;
+}
+ 
+.loginbox input[type="text"]:focus,
+.loginbox input[type="password"]:focus,
+.loginbox input[type="email"]:focus {
+    border-color: #a259ff;
+    outline: none;
+}
+ 
+/* Botón submit */
+.loginbox input[type="submit"],
+.loginbox button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    margin-top: 16px;
+    background: #a259ff;
+    border: none;
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 0.97rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+ 
+.loginbox input[type="submit"]:hover,
+.loginbox button[type="submit"]:hover {
+    background: #8040dd;
+}
+ 
+/* Botón secundario (Registrarse) */
+.loginbox button {
+    width: 100%;
+    padding: 11px;
+    margin-top: 10px;
+    background: transparent;
+    border: 1.5px solid #a259ff;
+    border-radius: 8px;
+    color: #a259ff;
+    font-size: 0.93rem;
+    font-weight: 600;
+    cursor: pointer;    
+}
+ 
+.loginbox button:hover {
+    background: #a259ff;
+    color: #ffffff;
+}
+ 
+/* Texto enlace */
+.loginbox p {
+    color: #888;
+    font-size: 0.85rem;
+    margin-top: 16px;
+    margin-bottom: 6px;
+}
+ 
+/* Mensajes */
+.error {
+    color: #e53e3e;
+    font-size: 0.82rem;
+    text-align: left;
+    margin-top: 3px;
+}
+ 
+.success {
+    color: #38a169;
+    font-size: 0.82rem;
+    text-align: left;
+    margin-top: 3px;
+}
+ 
